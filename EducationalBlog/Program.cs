@@ -1,4 +1,5 @@
 using EducationalBlog.Data.Context;
+using EducationalBlog.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,12 @@ builder.Services.AddDbContext<BlogContext>(option => option.UseSqlServer(connect
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add repo
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<ITagRepository, TagRepository>();
+builder.Services.AddSingleton<ICommentRepository, CommentRepository>();
+builder.Services.AddSingleton<IArticleRepository, ArticleRepository>();
 
 var app = builder.Build();
 
