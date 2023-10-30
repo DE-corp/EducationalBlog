@@ -15,11 +15,11 @@ namespace EducationalBlog.Data.Repositories
 
         public async Task CreateArticle(Article article, User user)
         {
-            article.User_Id = user.Id;
+            article.User_Id = user.Id; //3fa85f64-5717-4562-b3fc-2c963f66afa6
 
             var entry = _context.Entry(article);
             if (entry.State == EntityState.Detached)
-                _context.AddAsync(article);
+                await _context.Articles.AddAsync(article);
 
             await _context.SaveChangesAsync();
         }
@@ -28,7 +28,7 @@ namespace EducationalBlog.Data.Repositories
         {
             var entry = _context.Entry(article);
             if (entry.State == EntityState.Detached)
-                _context.Remove(article);
+                _context.Articles.Remove(article);
 
             await _context.SaveChangesAsync();
         }
@@ -57,7 +57,7 @@ namespace EducationalBlog.Data.Repositories
 
             var entry = _context.Entry(article);
             if (entry.State == EntityState.Detached)
-                _context.Update(article);
+                _context.Articles.Update(article);
 
             await _context.SaveChangesAsync();
         }

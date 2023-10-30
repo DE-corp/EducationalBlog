@@ -11,14 +11,14 @@ namespace EducationalBlog.Data.Repositories
 
         public UserRepository(BlogContext context)
         {
-            context = _context;
+            _context = context;
         }
 
         public async Task DeleteUser(User user)
         {
             var entry = _context.Entry(user);
             if (entry.State == EntityState.Detached)
-                _context.Remove(entry);
+                _context.Users.Remove(user);
 
             await _context.SaveChangesAsync();
         }
@@ -40,7 +40,7 @@ namespace EducationalBlog.Data.Repositories
         {
             var entry = _context.Entry(user);
             if (entry.State == EntityState.Detached)
-                _context.AddAsync(entry);
+                await _context.Users.AddAsync(user);
 
             await _context.SaveChangesAsync();
         }
@@ -48,19 +48,19 @@ namespace EducationalBlog.Data.Repositories
         public async Task UpdateUser(User user, UpdateUserModel updateUser)
         {
             if (!string.IsNullOrEmpty(updateUser.NewUserFirstName))
-                updateUser.NewUserFirstName = user.FirstName;
+                user.FirstName = updateUser.NewUserFirstName;
             if (!string.IsNullOrEmpty(updateUser.NewUserLastName))
-                updateUser.NewUserLastName = user.LastName;
+                user.LastName = updateUser.NewUserLastName;
             if (!string.IsNullOrEmpty(updateUser.NewEmail))
-                updateUser.NewEmail = user.Email;
+                user.Email = updateUser.NewEmail;
             if (!string.IsNullOrEmpty(updateUser.NewPassword))
-                updateUser.NewPassword = user.Password;
+                user.Password = updateUser.NewPassword;
             if (!string.IsNullOrEmpty(updateUser.NewLogin))
-                updateUser.NewLogin = user.Login;
+                user.Login = updateUser.NewLogin;
 
             var entry = _context.Entry(user);
             if (entry.State == EntityState.Detached)
-                _context.Update(entry);
+                _context.Users.Update(user);
 
             await _context.SaveChangesAsync();
         }

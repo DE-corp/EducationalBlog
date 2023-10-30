@@ -17,10 +17,10 @@ namespace EducationalBlog.Data.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<User>().ToTable("users");
-            builder.Entity<Article>().ToTable("articles");
-            builder.Entity<Tag>().ToTable("tags");
-            builder.Entity<Comment>().ToTable("comment");
+            builder.Entity<User>().ToTable("Users");
+            builder.Entity<Article>().ToTable("Articles");
+            builder.Entity<Tag>().ToTable("Tags");
+            builder.Entity<Comment>().ToTable("Comments");
 
             builder.Entity<Comment>()
                 .HasOne(a => a.User)

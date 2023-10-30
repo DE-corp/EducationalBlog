@@ -18,7 +18,7 @@ namespace EducationalBlog.Data.Repositories
         {
             var entry = _context.Entry(tag);
             if (entry.State == EntityState.Detached)
-                _context.AddAsync(entry);
+                await _context.Tags.AddAsync(tag);
 
             await _context.SaveChangesAsync();
         }
@@ -27,7 +27,7 @@ namespace EducationalBlog.Data.Repositories
         {
             var entry = _context.Entry(tag);
             if (entry.State == EntityState.Detached)
-                _context.Remove(entry);
+                _context.Tags.Remove(tag);
 
             await _context.SaveChangesAsync();
         }
@@ -52,7 +52,7 @@ namespace EducationalBlog.Data.Repositories
 
             var entry = _context.Entry(tag);
             if (entry.State == EntityState.Detached)
-                _context.Update(entry);
+                _context.Tags.Update(tag);
 
             await _context.SaveChangesAsync();
         }

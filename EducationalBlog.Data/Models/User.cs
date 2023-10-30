@@ -11,7 +11,6 @@
         public string Email { get; set; }
         public string Password { get; set; }
         public string Login { get; set; }
-        public DateTime Birthday { get; set; }
 
         // Статью к пользователю
         public List<Article> Articles { get; set; } = new List<Article>();

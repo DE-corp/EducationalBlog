@@ -25,7 +25,7 @@ namespace EducationalBlog.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("")]
+        [Route("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
             var user = await _user.GetAllUsers();
@@ -45,7 +45,7 @@ namespace EducationalBlog.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("id")]
+        [Route("GetUserById")]
         public async Task<IActionResult> GetUserById(UserRequest request)
         {
             var user = await _user.GetUserById(request.Id);
@@ -65,17 +65,17 @@ namespace EducationalBlog.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Create")]
+        [Route("CreateUser")]
         public async Task<IActionResult> CreateUser(UserRequest request)
         {
             var user = await _user.GetUserById(request.Id);
             if (user != null)
                 return StatusCode(400, "Такой пользователь уже существует");
 
-            var resalt = _mapper.Map<UserRequest, User>(request);
-            await _user.CreateUser(user);
+            var result = _mapper.Map<UserRequest, User>(request);
+            await _user.CreateUser(result);
 
-            return StatusCode(200, resalt);
+            return StatusCode(200, result);
         }
 
 
@@ -86,7 +86,7 @@ namespace EducationalBlog.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPatch]
-        [Route("")]
+        [Route("UpdateUser")]
         public async Task<IActionResult> UpdateUser(
             [FromRoute] Guid Id,
             [FromBody] EditUserRequest request)
@@ -114,8 +114,8 @@ namespace EducationalBlog.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("")]
-        public async Task<IActionResult> DeliteUser(UserRequest request)
+        [Route("DeleteUser")]
+        public async Task<IActionResult> DeleteUser(UserRequest request)
         {
             var user = await _user.GetUserById(request.Id);
             if (user == null)
