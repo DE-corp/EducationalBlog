@@ -45,7 +45,7 @@ namespace EducationalBlog.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("")]
+        [Route("id")]
         public async Task<IActionResult> GetUserById(UserRequest request)
         {
             var user = await _user.GetUserById(request.Id);

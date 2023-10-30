@@ -14,5 +14,20 @@ namespace EducationalBlog.Data.Context
         {
             Database.EnsureCreated();
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>().ToTable("users");
+            builder.Entity<Article>().ToTable("articles");
+            builder.Entity<Tag>().ToTable("tags");
+            builder.Entity<Comment>().ToTable("comment");
+
+            builder.Entity<Comment>()
+                .HasOne(a => a.User)
+                .WithMany(b => b.Comments)
+                .HasForeignKey(c => c.User_Id)
+                .HasPrincipalKey(d => d.Id)
+                .IsRequired(false);
+        }
     }
 }
