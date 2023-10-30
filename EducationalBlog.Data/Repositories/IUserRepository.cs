@@ -5,7 +5,7 @@ namespace EducationalBlog.Data.Repositories
 {
     public interface IUserRepository
     {
-        public Task RegisterUser(User user);
+        public Task CreateUser(User user);
         public Task UpdateUser(User user, UpdateUserModel updateUser);
         public Task DeleteUser(User user);
         public Task<User[]> GetAllUsers();

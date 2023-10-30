@@ -36,7 +36,7 @@ namespace EducationalBlog.Data.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task RegisterUser(User user)
+        public async Task CreateUser(User user)
         {
             var entry = _context.Entry(user);
             if (entry.State == EntityState.Detached)

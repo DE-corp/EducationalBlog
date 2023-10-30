@@ -1,5 +1,7 @@
+using AutoMapper;
 using EducationalBlog.Data.Context;
 using EducationalBlog.Data.Repositories;
+using EducationalBlog.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +12,20 @@ builder.Services.AddDbContext<BlogContext>(option => option.UseSqlServer(connect
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add mapping
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 // Add repo
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<ITagRepository, TagRepository>();
 builder.Services.AddSingleton<ICommentRepository, CommentRepository>();
 builder.Services.AddSingleton<IArticleRepository, ArticleRepository>();
+
 
 var app = builder.Build();
 
